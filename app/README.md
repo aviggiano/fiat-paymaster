@@ -1,6 +1,8 @@
 # app
 
-Paypal test accounts
+Paypal integration based on [this tutorial](https://dev.to/iandjx/paypal-integration-using-nextjs-and-prisma-21i8)
+
+Paypal test accounts:
 
 | Key                         | Value                                   |
 | --------------------------- | --------------------------------------- |
