@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import client from "lib/paypal";
 import paypal from "@paypal/checkout-server-sdk";
 import { Order } from "@paypal/checkout-server-sdk/lib/orders/lib";
-import type { HttpResponse } from "@paypal/paypalhttp/lib/paypalhttp/http_client.d.ts";
+import type { HttpResponse } from "@paypal/paypalhttp/lib/paypalhttp/http_client.js";
 
 export default async function handle(
   req: NextApiRequest,
