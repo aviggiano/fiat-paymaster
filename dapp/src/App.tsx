@@ -7,7 +7,7 @@ import { ethers } from "ethers";
 import { ClientConfig, ERC4337EthersProvider, ERC4337EthersSigner, wrapProvider } from "@account-abstraction/sdk";
 import { TokenPaymaster, TokenPaymaster__factory } from "@account-abstraction/contracts";
 import TestCounterAbi from "./TestCounter.abi.json";
-import { Counter } from "./Counter";
+import { Page } from "./Page";
 import "./App.css";
 
 // goerli:
@@ -88,7 +88,7 @@ export const App = () => {
         </a>
       </div>
       <div className="mt-3">
-        <Counter {...state} />
+        <Page {...state} />
       </div>
     </div>
   );

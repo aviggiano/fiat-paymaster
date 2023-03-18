@@ -4,7 +4,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { isUndefined } from "lodash-es";
 import type { IAppState } from "./App";
 
-export const Counter: FC<IAppState> = ({ accountAddress, provider, fpusd, counter }) => {
+export const Page: FC<IAppState> = ({ accountAddress, provider, fpusd, counter }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>();
   const [fpusdBalance, setFpusdBalance] = useState<BigNumber>();
   const [currentCount, setCurrentCount] = useState<number>();
