@@ -11,7 +11,7 @@ describe("FiatPaymaster", function () {
     const fiatPaymaster = await FiatPaymaster.deploy(
       ethers.constants.AddressZero,
       "FPUSD",
-      ethers.constants.AddressZero
+      ethers.constants.AddressZero,
     );
 
     return { fiatPaymaster, owner };
@@ -34,9 +34,7 @@ describe("FiatPaymaster", function () {
     it("Should not support account creation", async function () {
       const { fiatPaymaster } = await loadFixture(deployFiatPaymaster);
 
-      expect(await fiatPaymaster.theFactory()).to.equal(
-        ethers.constants.AddressZero
-      );
+      expect(await fiatPaymaster.theFactory()).to.equal(ethers.constants.AddressZero);
     });
   });
 
@@ -45,14 +43,10 @@ describe("FiatPaymaster", function () {
       it("Should convert 1 ETH to 1700 USD", async function () {
         const { fiatPaymaster } = await loadFixture(deployFiatPaymaster);
 
-        expect(await fiatPaymaster.ethToUsd()).to.equal(
-          ethers.constants.MaxUint256
-        );
+        expect(await fiatPaymaster.ethToUsd()).to.equal(ethers.constants.MaxUint256);
 
         await fiatPaymaster.setTokenValueOfEth(ethers.utils.parseEther("1700"));
-        expect(await fiatPaymaster.ethToUsd()).to.equal(
-          ethers.utils.parseEther("1700")
-        );
+        expect(await fiatPaymaster.ethToUsd()).to.equal(ethers.utils.parseEther("1700"));
       });
     });
   });
