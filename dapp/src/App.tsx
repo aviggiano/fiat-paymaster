@@ -4,7 +4,7 @@ import { useAccount, useConnect, useDisconnect, useNetwork, useSigner } from "wa
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { ethers } from "ethers";
-import { ERC4337EthersProvider, ERC4337EthersSigner, wrapProvider } from "@account-abstraction/sdk";
+import { ClientConfig, ERC4337EthersProvider, ERC4337EthersSigner, wrapProvider } from "@account-abstraction/sdk";
 import TestCounterAbi from "./TestCounter.abi.json";
 import { Counter } from "./Counter";
 import "./App.css";
@@ -29,12 +29,13 @@ export const App = () => {
       if (state || !isConnected || !signer) {
         return;
       }
-      const config = {
+      const config: ClientConfig = {
         entryPointAddress: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
         bundlerUrl: "https://node.stackup.sh/v1/rpc/621d49f02369a7a589d86c6ea4d0fbf9c227013cde89853bef43552ee1c62be6",
       };
       const vanillaProvider = signer.provider as JsonRpcProvider;
       const erc4337Provider = await wrapProvider(vanillaProvider, config, signer);
+      console.log("erc4337Provider", erc4337Provider);
       const erc4337Signer = erc4337Provider.getSigner();
 
       const counterAddress = "0x6F9641dd4b6Cf822D4cf52ceE753a8910b034827";
