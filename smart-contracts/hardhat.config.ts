@@ -5,10 +5,11 @@ import "@nomicfoundation/hardhat-toolbox";
 const config: HardhatUserConfig = {
   networks: {
     hardhat: {
-      // forking: {
-      //   url: process.env.GOERLI_PROVIDER_URL!,
-      //   blockNumber: 8676812,
-      // },
+      forking: {
+        url: process.env.GOERLI_PROVIDER_URL!,
+        blockNumber: 8677078,
+      },
+      accounts: [{ privateKey: process.env.DEPLOYER_PRIVATE_KEY!, balance: "10000000000000000000000" }],
     },
     goerli: {
       chainId: 5,
