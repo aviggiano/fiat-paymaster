@@ -23,6 +23,7 @@ describe("FiatPaymaster", function () {
 
       expect(await fiatPaymaster.symbol()).to.equal("FPUSD");
       expect(await fiatPaymaster.name()).to.equal("FPUSD");
+      expect(await fiatPaymaster.decimals()).to.equal(18);
     });
 
     it("Should set the right owner", async function () {

@@ -35,7 +35,7 @@ export const Counter: FC<IAppState> = ({ accountAddress, provider, counter }) =>
 
   return (
     <div className="">
-      <p>Wallet address: {isUndefined(accountAddress) ? "loading..." : accountAddress}</p>
+      <p>Account address: {isUndefined(accountAddress) ? "loading..." : accountAddress}</p>
       <p>Balance: {isUndefined(balance) ? "loading..." : `${ethers.utils.formatEther(balance)} ETH`}</p>
       <p>Counter value: {isUndefined(currentCount) ? "loading..." : `${currentCount}`}</p>
       <div>
