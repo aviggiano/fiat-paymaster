@@ -3,19 +3,15 @@ import Head from "next/head";
 import Image from "next/image";
 import { useMutation } from "react-query";
 import styles from "../styles/Home.module.css";
-import {
-  PayPalScriptProvider,
-  PayPalButtons,
-  FUNDING,
-} from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 import { OnApproveData } from "@paypal/paypal-js";
 
 export default function Home() {
-  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>(
-    (): any => axios.post("/api/paypal/createOrder")
+  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
+    axios.post("/api/paypal/createOrder"),
   );
-  const captureMutation = useMutation<string, AxiosError, any, Response>(
-    (data): any => axios.post("/api/paypal/captureOrder", data)
+  const captureMutation = useMutation<string, AxiosError, any, Response>((data): any =>
+    axios.post("/api/paypal/captureOrder", data),
   );
   const createPayPalOrder = async (): Promise<string> => {
     const response = await createMutation.mutateAsync({});
@@ -33,9 +29,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {captureMutation.data && (
-          <div>{JSON.stringify(captureMutation.data)}</div>
-        )}
+        {captureMutation.data && <div>{JSON.stringify(captureMutation.data)}</div>}
+        <h1>Fiat Paymaster</h1>
         <PayPalScriptProvider
           options={{
             "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID as string,
@@ -57,15 +52,14 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+        <a href="https://github.com/aviggiano" target="_blank" rel="noopener noreferrer">
+          @aviggiano
+        </a>
+        <a href="https://github.com/delaaxe" target="_blank" rel="noopener noreferrer">
+          @delaaxe
+        </a>
+        <a href="https://github.com/raigal-r" target="_blank" rel="noopener noreferrer">
+          @raigal-r
         </a>
       </footer>
     </div>
