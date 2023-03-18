@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
+console.log("buffer", globalThis.Buffer);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

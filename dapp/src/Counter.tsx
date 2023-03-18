@@ -1,38 +1,47 @@
 import { Button } from "react-bootstrap";
-import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite, useProvider, useSigner } from "wagmi";
-import TestCounterAbi from "./TestCounter.abi.json";
-import "./App.css";
+import { BigNumber, ethers } from "ethers";
+import { FC, useEffect, useState } from "react";
+import { isUndefined } from "lodash-es";
+import type { IAppState } from "./App";
 
-export const Counter = () => {
-  const { address } = useAccount();
+export const Counter: FC<IAppState> = ({ accountAddress, provider, counter }) => {
+  const [balance, setBalance] = useState<BigNumber>();
+  const [currentCount, setCurrentCount] = useState<number>();
+  const [status, setStatus] = useState<string>();
 
-  const counters = useContractRead({
-    address: "0x6F9641dd4b6Cf822D4cf52ceE753a8910b034827",
-    abi: TestCounterAbi,
-    functionName: "counters",
-    args: [address!],
-  });
-
-  console.log("counters is", counters);
-
-  const { config } = usePrepareContractWrite({
-    address: "0x6F9641dd4b6Cf822D4cf52ceE753a8910b034827",
-    abi: TestCounterAbi,
-    functionName: "count",
-  });
-  const count = useContractWrite(config);
+  useEffect(() => {
+    (async () => {
+      setBalance(await provider.getBalance(accountAddress));
+      setCurrentCount(await counter.counters(accountAddress));
+    })();
+  }, [accountAddress, provider, counter]);
 
   const handleClick = async () => {
-    count.write?.();
+    setStatus("Requesting signature...");
+    try {
+      const response = await counter.count();
+      setStatus(`Sent, waiting: ${response.hash}`);
+      const timeout = 60_000;
+      const receipt = await provider.waitForTransaction(response.hash, undefined, timeout);
+      console.log({ receipt });
+      setStatus("Success!");
+      setCurrentCount(await counter.counters(accountAddress));
+      setBalance(await provider.getBalance(accountAddress));
+    } catch (e) {
+      console.error(e);
+      setStatus(`Error: ${e}`);
+    }
   };
 
   return (
     <div className="">
-      <p>My counter: {counters.isLoading ? "loading..." : `${counters.data}`}</p>
+      <p>Wallet address: {isUndefined(accountAddress) ? "loading..." : accountAddress}</p>
+      <p>Balance: {isUndefined(balance) ? "loading..." : `${ethers.utils.formatEther(balance)} ETH`}</p>
+      <p>Counter value: {isUndefined(currentCount) ? "loading..." : `${currentCount}`}</p>
       <div>
-        <Button onClick={handleClick}>{count.isLoading ? "counting..." : "Count"}</Button>
+        <Button onClick={handleClick}>Count</Button>
       </div>
-      {count.isError && <p className="text-danger">{count.error?.message}</p>}
+      <div className="mt-3">{status && <p className="">{status}</p>}</div>
     </div>
   );
 };

@@ -5,21 +5,30 @@
   "dependencies": {
     "@account-abstraction/contracts": "^0.5.0",
     "@account-abstraction/sdk": "^0.5.0",
+    "bootstrap": "^5.2.3",
+    "buffer": "^6.0.3",
+    "ethers": "^5",
+    "lodash-es": "^4.17.21",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
+    "react-dom": "^18.2.0",
+    "wagmi": "^0.12.1"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
+    "@types/lodash-es": "^4.17.7",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "bootstrap": "^5.2.3",
-    "ethers": "^5",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.7.2",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.4.2",
-    "wagmi": "^0.12.1"
+    "prettier": "^2.8.4",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.4.2"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,19 +42,9 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "prettier": "^2.8.4"
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }
