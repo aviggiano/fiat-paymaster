@@ -2,9 +2,9 @@ import { Button } from "react-bootstrap";
 import { BigNumber, ethers } from "ethers";
 import { FC, useCallback, useEffect, useState } from "react";
 import { isUndefined } from "lodash-es";
-import type { IAppState } from "./App";
+import { IAppState } from "./services";
 
-export const Page: FC<IAppState> = ({ accountAddress, provider, fpusd, counter }) => {
+export const Page: FC<IAppState> = ({ provider, accountAddress, fpusd, counter }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>();
   const [fpusdBalance, setFpusdBalance] = useState<BigNumber>();
   const [currentCount, setCurrentCount] = useState<number>();
@@ -30,9 +30,9 @@ export const Page: FC<IAppState> = ({ accountAddress, provider, fpusd, counter }
       console.log({ receipt });
       setStatus("Success!");
       await refreshValues();
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setStatus(`Error: ${e}`);
+      setStatus(`Error: ${e?.message || e}`);
     }
   };
 
