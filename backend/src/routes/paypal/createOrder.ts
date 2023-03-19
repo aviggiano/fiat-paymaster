@@ -1,10 +1,14 @@
 import client from "../../lib/paypal";
 import paypal from "@paypal/checkout-server-sdk";
 import { Request, Response } from "express";
+import * as database from "../../lib/database";
 
 export default async function handle(req: Request, res: Response) {
+  console.log(req.body);
+  const { address } = req.body;
+  const amount = "100.00";
+
   const PaypalClient = client();
-  //This code is lifted from https://github.com/paypal/Checkout-NodeJS-SDK
   const request = new paypal.orders.OrdersCreateRequest();
   request.headers["Prefer"] = "return=representation";
   request.requestBody({
@@ -13,7 +17,7 @@ export default async function handle(req: Request, res: Response) {
       {
         amount: {
           currency_code: "USD",
-          value: "100.00",
+          value: amount,
         },
       },
     ],
@@ -23,10 +27,13 @@ export default async function handle(req: Request, res: Response) {
     res.status(500);
   }
 
-  //Once order is created store the data
-  console.log({
-    orderID: response.result.id,
+  const key = response.result.id;
+  const value = {
+    orderID: key,
     status: "PENDING",
-  });
-  res.json({ orderID: response.result.id });
+    address,
+    amount,
+  };
+  await database.set(key, value);
+  res.json(value);
 }
