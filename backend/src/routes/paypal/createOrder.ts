@@ -2,11 +2,12 @@ import client from "../../lib/paypal";
 import paypal from "@paypal/checkout-server-sdk";
 import { Request, Response } from "express";
 import * as database from "../../lib/database";
+import { config } from "../../config";
 
 export default async function handle(req: Request, res: Response) {
   console.log(req.body);
   const { address } = req.body;
-  const amount = "100.00";
+  const amount = "10.00";
 
   const PaypalClient = client();
   const request = new paypal.orders.OrdersCreateRequest();
@@ -17,7 +18,7 @@ export default async function handle(req: Request, res: Response) {
       {
         amount: {
           currency_code: "USD",
-          value: amount,
+          value: (Number(amount) * (1 + config.feePercent)).toFixed(2),
         },
       },
     ],
