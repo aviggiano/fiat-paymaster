@@ -5,7 +5,9 @@
   "author": "delaaxe",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index"
+    "start": "node build/index.js",
+    "build": "tsc",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
