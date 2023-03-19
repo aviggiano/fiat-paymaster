@@ -31,7 +31,7 @@ app.post("/paypal/order/create", createOrder);
     throw new Error(`Paymaster owner in contract ${paymasterOwner} does not match signer ${signerAddress}`);
   }
 
-  const port = 3001;
+  const port = process.env.PORT || 3001;
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });
