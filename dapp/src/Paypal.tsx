@@ -3,12 +3,12 @@ import { useMutation } from "react-query";
 import { PayPalScriptProvider, PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 import { OnApproveData } from "@paypal/paypal-js";
 import { backendUrl, paypalClientId } from "./config";
-import { useAccount } from "wagmi";
+import { FC } from "react";
+import { IAppState } from "./services";
 
-export default function Paypal() {
-  const { address } = useAccount();
+export const Paypal: FC<IAppState> = ({ accountAddress }) => {
   const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
-    axios.post(`${backendUrl}/paypal/order/create`, { address }),
+    axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress }),
   );
   const captureMutation = useMutation<string, AxiosError, any, Response>((data): any =>
     axios.post(`${backendUrl}/paypal/order/capture`, data),
@@ -46,4 +46,4 @@ export default function Paypal() {
       </div>
     </div>
   );
-}
+};

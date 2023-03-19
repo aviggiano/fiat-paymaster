@@ -5,7 +5,7 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { Page } from "./Page";
 import { formatAddress, getAppState, IAppState } from "./services";
 import "./App.css";
-import Paypal from "./Paypal";
+import { Paypal } from "./Paypal";
 
 export const App = () => {
   const { address, isConnected } = useAccount();
@@ -49,7 +49,7 @@ export const App = () => {
       <div className="mt-3">
         <Page {...state} />
       </div>
-      <Paypal />
+      <Paypal {...state} />
     </div>
   );
 };
