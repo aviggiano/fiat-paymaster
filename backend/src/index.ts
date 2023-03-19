@@ -36,3 +36,5 @@ app.post("/paypal/order/create", createOrder);
     console.log(`Example app listening on port ${port}`);
   });
 })();
+
+export default app;
