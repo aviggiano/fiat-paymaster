@@ -1,7 +1,8 @@
 export const bundlerUrl =
   "https://node.stackup.sh/v1/rpc/621d49f02369a7a589d86c6ea4d0fbf9c227013cde89853bef43552ee1c62be6";
 
-export const backendUrl = "http://localhost:3001";
+export const backendUrl =
+  process.env.NODE_ENV === "production" ? "https://fiat-paymaster.herokuapp.com" : "http://localhost:3001";
 export const paypalClientId = "AeL2OJsqyf36-6jUnzOjr3otA_S6pI2Chk3cP0b_bcKzTjluDrvHBdxCcoIJ2G3zAyBXQVplQH9YqbSy";
 
 // goerli:

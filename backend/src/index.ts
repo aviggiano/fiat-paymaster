@@ -16,8 +16,7 @@ app.get("/config", (req, res) => {
   res.send(config);
 });
 
-app.get("/health", (req, res) => {
-  console.log("health check");
+app.get("/", (req, res) => {
   res.send({ status: "ok" });
 });
 
