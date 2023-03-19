@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { useAccount, useConnect, useDisconnect, useNetwork, useSigner } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { Page } from "./Page";
-import { getAppState, IAppState } from "./services";
+import { formatAddress, getAppState, IAppState } from "./services";
 import "./App.css";
 
 export const App = () => {
@@ -32,17 +32,16 @@ export const App = () => {
     );
   }
 
+  const handleDisconnect = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    disconnect();
+  };
+
   return (
     <div className="App mt-3 px-3">
       <div className="fw-light">
-        Connected owner: {address.slice(0, 6)}...{address.slice(-4)} to {chain?.name}.{" "}
-        <a
-          href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            disconnect();
-          }}
-        >
+        Connected owner: {formatAddress(address)} to {chain?.name}.{" "}
+        <a href="/" onClick={handleDisconnect}>
           Disconnect
         </a>
       </div>

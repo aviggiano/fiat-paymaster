@@ -1,5 +1,7 @@
-// goerli:
+export const bundlerUrl =
+  "https://node.stackup.sh/v1/rpc/621d49f02369a7a589d86c6ea4d0fbf9c227013cde89853bef43552ee1c62be6";
 
+// goerli:
 export const config = {
   entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
   simpleAccountFactory: "0x09c58cf6be8E25560d479bd52B4417d15bCA2845",

@@ -1,8 +1,9 @@
 import { TokenPaymaster, TokenPaymaster__factory } from "@account-abstraction/contracts";
-import { ClientConfig, wrapProvider } from "@account-abstraction/sdk";
+import { ClientConfig, SimpleAccountAPI, wrapProvider } from "@account-abstraction/sdk";
+import { BaseAccountAPI } from "@account-abstraction/sdk/dist/src/BaseAccountAPI";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { ethers, Signer } from "ethers";
-import { config } from "./config";
+import { bundlerUrl, config } from "./config";
 import TestCounterAbi from "./TestCounter.abi.json";
 
 export interface IAppState {
@@ -11,36 +12,48 @@ export interface IAppState {
   accountAddress: string;
   fpusd: TokenPaymaster;
   counter: ethers.Contract;
+  isAA: boolean;
+  accountAPI: BaseAccountAPI;
 }
 
-export const getAppState = async (wagmiSigner: ethers.Signer) => {
-  const [signer, provider] = await getSignerAndProvider(wagmiSigner);
+export const getAppState = async (originalSigner: ethers.Signer) => {
+  const [isAA, signer, provider, accountAPI] = await getSignerAndProvider(originalSigner);
 
   const accountAddress = await signer.getAddress();
   const counter = new ethers.Contract(config.testCounter, TestCounterAbi, signer);
   const fpusd = TokenPaymaster__factory.connect(config.fiatPaymaster, provider);
 
-  return { accountAddress, provider, signer, fpusd, counter };
+  return { provider, signer, accountAddress, fpusd, counter, isAA, accountAPI };
 };
 
-export const getSignerAndProvider = async (wagmiSigner: ethers.Signer) => {
-  const web3Provider = wagmiSigner.provider as Web3Provider;
+export const getSignerAndProvider = async (originalSigner: ethers.Signer) => {
+  const web3Provider = originalSigner.provider as Web3Provider;
   const injectedProvider = web3Provider.provider;
-  const isTrampoline = (injectedProvider as any).isAAExtension;
-  console.log({ isTrampoline });
-  if (isTrampoline) {
-    return [wagmiSigner, web3Provider] as const;
+  const isAA = (injectedProvider as any).isAAExtension;
+  const paymasterAPI = {
+    getPaymasterAndData: async () => config.fiatPaymaster,
+  };
+
+  if (isAA) {
+    const accountAPI = new SimpleAccountAPI({
+      accountAddress: await originalSigner.getAddress(),
+      provider: web3Provider,
+      entryPointAddress: config.entryPoint,
+      owner: originalSigner,
+      factoryAddress: config.simpleAccountFactory,
+      paymasterAPI,
+    });
+
+    return [true, originalSigner, web3Provider, accountAPI] as const;
   }
 
-  const erc4337Provider = await wrapProvider(web3Provider, clientConfig, wagmiSigner);
+  const clientConfig: ClientConfig = { entryPointAddress: config.entryPoint, bundlerUrl, paymasterAPI };
+  const erc4337Provider = await wrapProvider(web3Provider, clientConfig, originalSigner);
   const erc4337Signer = erc4337Provider.getSigner();
-  return [erc4337Signer, erc4337Provider] as const;
+  const accountAPI = erc4337Provider.smartAccountAPI;
+  return [false, erc4337Signer, erc4337Provider, accountAPI] as const;
 };
 
-const clientConfig: ClientConfig = {
-  entryPointAddress: config.entryPoint,
-  bundlerUrl: "https://node.stackup.sh/v1/rpc/621d49f02369a7a589d86c6ea4d0fbf9c227013cde89853bef43552ee1c62be6",
-  paymasterAPI: {
-    getPaymasterAndData: async () => config.fiatPaymaster,
-  },
+export const formatAddress = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
 };
