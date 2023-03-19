@@ -7,7 +7,7 @@ import { config } from "../../config";
 export default async function handle(req: Request, res: Response) {
   console.log(req.body);
   const { address } = req.body;
-  const amount = "10.00";
+  const amount = "100.00";
 
   const PaypalClient = client();
   const request = new paypal.orders.OrdersCreateRequest();
