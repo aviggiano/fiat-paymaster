@@ -8,7 +8,7 @@ import { config } from "./config";
     const deployerBalance = await deployer.getBalance();
     console.log(`Deployer is ${deployer.address} with balance ${ethers.utils.formatEther(deployerBalance)} ETH`);
 
-    const entryPoint = await ethers.getContractAt("Entrypoint", config.entryPoint, deployer);
+    const entryPoint = await ethers.getContractAt("IEntryPoint", config.entryPoint, deployer);
     const fiatPaymaster = await ethers.getContractAt("FiatPaymaster", config.fiatPaymaster, deployer);
 
     console.log("Setting 1 ETH = 1800 FPUSD");
