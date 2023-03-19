@@ -21,8 +21,8 @@ app.get("/health", (req, res) => {
   res.send({ status: "ok" });
 });
 
-app.post("/paypal/capture", captureOrder);
-app.post("/paypal/create", createOrder);
+app.post("/paypal/order/capture", captureOrder);
+app.post("/paypal/order/create", createOrder);
 
 (async () => {
   const paymasterOwner = await fiatPaymaster.owner();
