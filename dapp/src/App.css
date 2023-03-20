@@ -1,13 +1,43 @@
 .App {
   text-align: center;
-  background-color: #1D1B34;
   color: white;
   height: 100vh;
-	width: 100vw;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Futura";
+}
+
+.connect-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  width: 460px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #1D1B34;
+}
+
+.connect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.connect > button.btn-secondary {
+  margin-left: auto;
+}
+
+.page > h1 {
+  margin-bottom: 48px;
+}
+
+.page > h2 {
+  margin-bottom: 24px;
 }
 
 .App-logo {
@@ -50,4 +80,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.balances {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.balances > div {
+  display: flex;
+  gap: 6px;
+}
+
+.balances > div > img {
+  width: 24px;
+  height: 24px;
 }

@@ -3,13 +3,18 @@ import { useMutation } from "react-query";
 import { PayPalScriptProvider, PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 import { OnApproveData } from "@paypal/paypal-js";
 import { backendUrl, paypalClientId } from "../config";
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import { IAppState } from "../services";
 import { AppContext } from "../contexts/AppContext";
 
 export const Paypal: FC = () => {
   const state = useContext<IAppState | undefined>(AppContext);
   const accountAddress = state?.accountAddress;
+
+  useEffect(() => {
+    // wake heroku up
+    axios.get(`${backendUrl}/health`);
+  }, []);
 
   const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
     axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress }),
