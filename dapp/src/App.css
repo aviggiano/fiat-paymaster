@@ -51,3 +51,19 @@
     transform: rotate(360deg);
   }
 }
+
+.balances {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.balances > div {
+  display: flex;
+  gap: 6px;
+}
+
+.balances > div > img {
+  width: 24px;
+  height: 24px;
+}

@@ -1,28 +1,24 @@
 import { Button } from "react-bootstrap";
-import { BigNumber, ethers } from "ethers";
 import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { isUndefined } from "lodash-es";
 import { IAppState } from "./services";
 import { AppContext } from "./contexts/AppContext";
 import { ConnectButton } from "./components/ConnectButton";
 import { Paypal } from "./components/Paypal";
+import { Balances } from "./components/Balances";
 
 export const Page: FC = () => {
   const state = useContext<IAppState | undefined>(AppContext);
-  const { provider, accountAddress, fpusd, counter } = state || {};
+  const { provider, accountAddress, counter } = state || {};
 
-  const [ethBalance, setEthBalance] = useState<BigNumber>();
-  const [fpusdBalance, setFpusdBalance] = useState<BigNumber>();
   const [currentCount, setCurrentCount] = useState<number>();
   const [status, setStatus] = useState<string>();
 
   const refreshValues = useCallback(async () => {
     if (accountAddress) {
-      setEthBalance(await provider?.getBalance(accountAddress));
-      setFpusdBalance(await fpusd?.balanceOf(accountAddress));
       setCurrentCount(await counter?.counters(accountAddress));
     }
-  }, [accountAddress, provider, fpusd, counter]);
+  }, [accountAddress, counter]);
 
   useEffect(() => {
     refreshValues();
@@ -49,9 +45,7 @@ export const Page: FC = () => {
       <ConnectButton />
       <p>Account address: {isUndefined(accountAddress) ? "loading..." : accountAddress}</p>
       <p></p>
-      <h2>Balances</h2>
-      <div>{isUndefined(ethBalance) ? "loading..." : `${ethers.utils.formatEther(ethBalance)} ETH`}</div>
-      <div>{isUndefined(fpusdBalance) ? "loading..." : `${ethers.utils.formatEther(fpusdBalance)} FPUSD`}</div>
+      <Balances />
       <p></p>
       <div className="mt-3">{status && <p className="">{status}</p>}</div>
       <h2>Buy FPUSD</h2>
