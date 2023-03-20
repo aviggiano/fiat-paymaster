@@ -1,19 +1,25 @@
 import { Button } from "react-bootstrap";
 import { BigNumber, ethers } from "ethers";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { isUndefined } from "lodash-es";
 import { IAppState } from "./services";
+import { AppContext } from "./contexts/AppContext";
 
-export const Page: FC<IAppState> = ({ provider, accountAddress, fpusd, counter }) => {
+export const Page: FC = () => {
+  const state = useContext<IAppState | undefined>(AppContext);
+  const { provider, accountAddress, fpusd, counter } = state || {};
+
   const [ethBalance, setEthBalance] = useState<BigNumber>();
   const [fpusdBalance, setFpusdBalance] = useState<BigNumber>();
   const [currentCount, setCurrentCount] = useState<number>();
   const [status, setStatus] = useState<string>();
 
   const refreshValues = useCallback(async () => {
-    setEthBalance(await provider.getBalance(accountAddress));
-    setFpusdBalance(await fpusd.balanceOf(accountAddress));
-    setCurrentCount(await counter.counters(accountAddress));
+    if (accountAddress) {
+      setEthBalance(await provider?.getBalance(accountAddress));
+      setFpusdBalance(await fpusd?.balanceOf(accountAddress));
+      setCurrentCount(await counter?.counters(accountAddress));
+    }
   }, [accountAddress, provider, fpusd, counter]);
 
   useEffect(() => {
@@ -23,10 +29,10 @@ export const Page: FC<IAppState> = ({ provider, accountAddress, fpusd, counter }
   const handleClick = async () => {
     setStatus("Requesting signature...");
     try {
-      const response = await counter.count({ gasLimit: 66_000 });
+      const response = await counter?.count({ gasLimit: 66_000 });
       setStatus(`Sent, waiting: ${response.hash}`);
       const timeout = 60_000;
-      const receipt = await provider.waitForTransaction(response.hash, undefined, timeout);
+      const receipt = await provider?.waitForTransaction(response.hash, undefined, timeout);
       console.log({ receipt });
       setStatus("Success!");
       await refreshValues();

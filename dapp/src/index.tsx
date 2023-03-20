@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { configureChains, mainnet, goerli, createClient, WagmiConfig } from "wagmi";
 import { infuraProvider } from "wagmi/providers/infura";
 import { App } from "./App";
+import { AppProvider } from "./contexts/AppContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
@@ -25,7 +26,9 @@ root.render(
   <React.StrictMode>
     <WagmiConfig client={client}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </QueryClientProvider>
     </WagmiConfig>
   </React.StrictMode>,
