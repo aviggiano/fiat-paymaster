@@ -11,6 +11,14 @@
   font-family: "Futura";
 }
 
+.page > h1 {
+  margin-bottom: 48px;
+}
+
+.page > h2 {
+  margin-bottom: 24px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

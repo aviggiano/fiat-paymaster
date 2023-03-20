@@ -41,7 +41,7 @@ export const Page: FC = () => {
   };
 
   return (
-    <div className="">
+    <div className="page">
       <h1>Fiat Paymaster</h1>
       <ConnectButton />
       <Balances />
