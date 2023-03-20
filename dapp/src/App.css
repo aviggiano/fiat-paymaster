@@ -1,14 +1,35 @@
 .App {
   text-align: center;
-  background-color: #1D1B34;
   color: white;
   height: 100vh;
-	width: 320px;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Futura";
+}
+
+.connect-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  width: 460px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #1D1B34;
+}
+
+.connect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.connect > button.btn-secondary {
+  margin-left: auto;
 }
 
 .page > h1 {

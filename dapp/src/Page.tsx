@@ -49,7 +49,7 @@ export const Page: FC = () => {
       <h2>Buy FPUSD</h2>
       <Paypal />
       <h2>Counter</h2>
-      <p>Counter value: {isUndefined(currentCount) ? "loading..." : `${currentCount}`}</p>
+      <p>Counter value: {isUndefined(currentCount) ? "***" : `${currentCount}`}</p>
       <div>
         <Button onClick={handleClick}>Count</Button>
       </div>
