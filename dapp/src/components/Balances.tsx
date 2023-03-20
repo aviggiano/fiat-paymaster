@@ -28,11 +28,11 @@ export const Balances: FC = () => {
     <div className="balances">
       <div>
         <img src="/eth.png" alt="ETH" />
-        <span>{isUndefined(ethBalance) ? "***" : `${format(ethBalance)} ETH`}</span>
+        <span>{!accountAddress || isUndefined(ethBalance) ? "***" : `${format(ethBalance)} ETH`}</span>
       </div>
       <div>
         <img src="/usd.png" alt="FPUSD" />
-        <span>{isUndefined(fpusdBalance) ? "***" : `${format(fpusdBalance)} FPUSD`}</span>
+        <span>{!accountAddress || isUndefined(fpusdBalance) ? "***" : `${format(fpusdBalance)} FPUSD`}</span>
       </div>
     </div>
   );
