@@ -1,19 +1,15 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { formatAddress } from "../services";
 import { Button } from "react-bootstrap";
 import { useAccount, useConnect, useDisconnect, useNetwork } from "wagmi";
 import { InjectedConnector } from "wagmi/dist/connectors/injected";
+import makeBlockie from "ethereum-blockies-base64";
 
 export const ConnectButton: FC = () => {
   const { address } = useAccount();
   const { connect } = useConnect({ connector: new InjectedConnector() });
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
-
-  const handleDisconnect = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    disconnect();
-  };
 
   if (!address) {
     return (
@@ -25,10 +21,11 @@ export const ConnectButton: FC = () => {
 
   return (
     <div className="fw-light">
-      Connected owner: {formatAddress(address)} to {chain?.name}.{" "}
-      <a href="/" onClick={handleDisconnect}>
+      {address ? <img className="blockie" src={makeBlockie(address)} alt={address} /> : null}
+      Owner: {formatAddress(address)} to {chain?.name}.{" "}
+      <Button variant="secondary" onClick={() => disconnect()}>
         Disconnect
-      </a>
+      </Button>
     </div>
   );
 };

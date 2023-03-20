@@ -4,6 +4,8 @@ import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { isUndefined } from "lodash-es";
 import { IAppState } from "./services";
 import { AppContext } from "./contexts/AppContext";
+import { ConnectButton } from "./components/ConnectButton";
+import { Paypal } from "./components/Paypal";
 
 export const Page: FC = () => {
   const state = useContext<IAppState | undefined>(AppContext);
@@ -44,17 +46,21 @@ export const Page: FC = () => {
 
   return (
     <div className="">
+      <ConnectButton />
       <p>Account address: {isUndefined(accountAddress) ? "loading..." : accountAddress}</p>
       <p></p>
-      <div>Balances:</div>
+      <h2>Balances</h2>
       <div>{isUndefined(ethBalance) ? "loading..." : `${ethers.utils.formatEther(ethBalance)} ETH`}</div>
       <div>{isUndefined(fpusdBalance) ? "loading..." : `${ethers.utils.formatEther(fpusdBalance)} FPUSD`}</div>
       <p></p>
+      <div className="mt-3">{status && <p className="">{status}</p>}</div>
+      <h2>Buy FPUSD</h2>
+      <Paypal />
+      <h2>Counter</h2>
       <p>Counter value: {isUndefined(currentCount) ? "loading..." : `${currentCount}`}</p>
       <div>
         <Button onClick={handleClick}>Count</Button>
       </div>
-      <div className="mt-3">{status && <p className="">{status}</p>}</div>
     </div>
   );
 };

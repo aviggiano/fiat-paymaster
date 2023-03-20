@@ -8,6 +8,7 @@
     "@paypal/react-paypal-js": "^7.8.2",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
+    "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
