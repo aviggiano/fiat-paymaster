@@ -42,11 +42,9 @@ export const Page: FC = () => {
 
   return (
     <div className="">
+      <h1>Fiat Paymaster</h1>
       <ConnectButton />
-      <p>Account address: {isUndefined(accountAddress) ? "loading..." : accountAddress}</p>
-      <p></p>
       <Balances />
-      <p></p>
       <div className="mt-3">{status && <p className="">{status}</p>}</div>
       <h2>Buy FPUSD</h2>
       <Paypal />
