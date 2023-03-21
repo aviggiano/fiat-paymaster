@@ -33,7 +33,7 @@ export const Paypal: FC = () => {
   return (
     <div>
       <div>
-        {captureMutation.data && <div>{JSON.stringify(captureMutation.data)}</div>}
+        {/* {captureMutation.data && <div>{JSON.stringify(captureMutation.data)}</div>} */}
         <PayPalScriptProvider
           options={{
             "client-id": paypalClientId,
