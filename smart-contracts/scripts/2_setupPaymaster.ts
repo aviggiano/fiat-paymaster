@@ -1,4 +1,3 @@
-import { EntryPoint__factory } from "@account-abstraction/contracts";
 import { ethers } from "hardhat";
 import { config } from "./config";
 
