@@ -17,8 +17,11 @@ contract FiatPaymaster is TokenPaymaster {
     constructor(
         address accountFactory,
         string memory _symbol,
-        IEntryPoint _entryPoint
-    ) TokenPaymaster(accountFactory, _symbol, _entryPoint) {}
+        IEntryPoint _entryPoint,
+        address _owner
+    ) TokenPaymaster(accountFactory, _symbol, _entryPoint) {
+        transferOwnership(_owner);
+    }
 
     function getTokenValueOfEth(uint256 valueEth) internal view virtual override returns (uint256 valueToken) {
         return (valueEth * ethToUsd) / 1 ether;

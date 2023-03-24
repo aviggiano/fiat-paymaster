@@ -7,7 +7,7 @@ import {FiatPaymaster} from "./FiatPaymaster.sol";
 contract FiatPaymasterFactory {
     FiatPaymaster public immutable fiatPaymaster;
 
-    constructor(address accountFactory, string memory _symbol, IEntryPoint _entryPoint, bytes32 salt) {
-        fiatPaymaster = new FiatPaymaster{salt: salt}(accountFactory, _symbol, _entryPoint);
+    constructor(address accountFactory, string memory _symbol, IEntryPoint _entryPoint, bytes32 salt, address _owner) {
+        fiatPaymaster = new FiatPaymaster{salt: salt}(accountFactory, _symbol, _entryPoint, _owner);
     }
 }
