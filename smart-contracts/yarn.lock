@@ -28,6 +28,16 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@connext/interfaces@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@connext/interfaces/-/interfaces-2.0.3.tgz#ee98506992d83e5c317cadef34092abe4ea8f348"
+  integrity sha512-2qEDgNOX6OFJM6A5cMbqB7Di3U5L2v+a8lAUgoYUCiLoZ7M4mlKvKj+fDapPvZXsZiQeFSXs5TZHbnvy8dbqEw==
+
+"@connext/smart-contracts@^1.2.0-alpha.0":
+  version "1.2.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@connext/smart-contracts/-/smart-contracts-1.2.0-alpha.0.tgz#d8d870894a94dc77217abd39dae42a0da5508862"
+  integrity sha512-VjTMekMeF/dCa3+tzz57AgkI+ty8jVTlBbVeexbHs+W2M+GODu7E+Gs2Affs0bOT+7Fw7LbhaJ02Ew0xF4775A==
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"
