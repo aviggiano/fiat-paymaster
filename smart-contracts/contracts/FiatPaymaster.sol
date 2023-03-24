@@ -37,38 +37,13 @@ contract FiatPaymaster is TokenPaymaster {
         connext = _connext;
     }
 
-    // https://docs.connext.network/developers/examples/simple-bridge
-    /**
-     * @notice Transfers non-native assets from one chain to another.
-     * @param amount The amount to transfer.
-     * @param recipient The destination address (e.g. a wallet).
-     * @param destinationDomain The destination domain ID.
-     * @param slippage The maximum amount of slippage the user will accept in BPS.
-     * @param relayerFee The fee offered to relayers.
-     */
-    function xTransfer(
-        uint256 amount,
-        address recipient,
-        uint32 destinationDomain,
-        uint256 slippage,
-        uint256 relayerFee
-    ) external payable {
-        require(address(connext) != address(0), "Bridge not supported on this chain");
-        require(msg.value == relayerFee, "msg.value MUST be passed in equal to the specified relayerFee");
-        require(this.balanceOf(msg.sender) >= amount, "User must have enouth tokens");
+    function mint(address to, uint256 amount) public {
+        require(msg.sender == address(connext));
+        _mint(to, amount);
+    }
 
-        _burn(msg.sender, amount);
-        _mint(address(this), amount);
-        this.approve(address(connext), amount);
-
-        connext.xcall{value: relayerFee}(
-            destinationDomain, // _destination: Domain ID of the destination chain
-            recipient, // _to: address receiving the funds on the destination
-            address(this), // _asset: address of the token contract
-            msg.sender, // _delegate: address that can revert or forceLocal on destination
-            amount, // _amount: amount of tokens to transfer
-            slippage, // _slippage: the maximum amount of slippage the user will accept in BPS (e.g. 30 = 0.3%)
-            bytes("") // _callData: empty bytes because we're only sending funds
-        );
+    function burn(address to, uint256 amount) public {
+        require(msg.sender == address(connext));
+        _burn(to, amount);
     }
 }
