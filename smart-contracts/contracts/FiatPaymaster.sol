@@ -37,7 +37,6 @@ contract FiatPaymaster is TokenPaymaster {
     // https://docs.connext.network/developers/examples/simple-bridge
     /**
      * @notice Transfers non-native assets from one chain to another.
-     * @dev User should approve a spending allowance before calling this.
      * @param amount The amount to transfer.
      * @param recipient The destination address (e.g. a wallet).
      * @param destinationDomain The destination domain ID.

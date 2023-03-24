@@ -8,7 +8,7 @@ import { config } from "./config";
     console.log(`Deployer is ${deployer.address} with balance ${ethers.utils.formatEther(deployerBalance)} ETH`);
 
     const FiatPaymasterFactory = await ethers.getContractFactory("FiatPaymasterFactory");
-    const args = [config.simpleAccountFactory, "FPUSD", config.entryPoint] as const;
+    const args = [config.goerli.simpleAccountFactory, "FPUSD", config.goerli.entryPoint] as const;
     const fiatPaymasterFactory = await FiatPaymasterFactory.deploy(...args, config.salt);
     await fiatPaymasterFactory.deployed();
 
