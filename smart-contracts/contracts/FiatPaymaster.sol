@@ -42,8 +42,8 @@ contract FiatPaymaster is TokenPaymaster {
         _mint(to, amount);
     }
 
-    function burn(address to, uint256 amount) public {
+    function burn(address from, uint256 amount) public {
         require(msg.sender == address(connext));
-        _burn(to, amount);
+        _burn(from, amount);
     }
 }
