@@ -1,14 +1,18 @@
 import hre, { ethers } from "hardhat";
 import { config } from "./config";
 
+type Chain = "goerli" | "gnosis";
+
 (async () => {
   try {
+    const network = hre.network.name as Chain;
     const [deployer] = await ethers.getSigners();
     const deployerBalance = await deployer.getBalance();
     console.log(`Deployer is ${deployer.address} with balance ${ethers.utils.formatEther(deployerBalance)} ETH`);
 
     const FiatPaymasterFactory = await ethers.getContractFactory("FiatPaymasterFactory");
-    const args = [config.goerli.simpleAccountFactory, "FPUSD", config.goerli.entryPoint, deployer.address] as const;
+    const args = [config[network].simpleAccountFactory, "FPUSD", config[network].entryPoint, deployer.address] as const;
+    console.log(args);
     const fiatPaymasterFactory = await FiatPaymasterFactory.deploy(...args, config.salt);
     await fiatPaymasterFactory.deployed();
 

@@ -9,6 +9,7 @@ export const config = {
     chainId: 5,
     connextDomainId: 1735353714,
   },
+  scroll: {},
   polygon: {
     connext: "0x11984dc4465481512eb5b777E44061C158CF2259",
     chainId: 137,
@@ -25,6 +26,10 @@ export const config = {
     connextDomainId: 1735356532,
   },
   gnosis: {
+    entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
+    simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
+    fiatPaymaster: "0x5d02C9B2a98d98E41FC53b92589a1099F5bF4CeE",
+    testCounter: "0x7482aF0Ab015a0da5f0573838202a9325f3199B2",
     connext: "0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109",
     chainId: 100,
     connextDomainId: 6778479,
