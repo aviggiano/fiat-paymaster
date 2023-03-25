@@ -28,12 +28,21 @@ const config: HardhatUserConfig = {
       url: "https://rpc.ankr.com/optimism",
       accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
     },
+    polygon: {
+      url: "https://rpc.ankr.com/polygon",
+      accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
+    },
+    polygonZKEVM: {
+      url: "https://rpc.public.zkevm-test.net",
+      accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
+    },
   },
   solidity: "0.8.17",
   etherscan: {
     apiKey: {
       goerli: process.env.ETHERSCAN_API_KEY!,
       gnosis: process.env.GNOSISCAN_API_KEY!,
+      polygon: process.env.POLYGONSCAN_API_KEY!,
       optimisticEthereum: process.env.OPTIMISMSCAN_API_KEY!,
     },
     customChains: [

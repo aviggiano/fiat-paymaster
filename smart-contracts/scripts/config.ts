@@ -1,3 +1,4 @@
+export type Chain = "goerli" | "gnosis" | "optimism" | "polygonZKEVM";
 export const config = {
   salt: "0x0000000000000000000000000000000000000000000000000000000000000000",
   goerli: {
@@ -17,9 +18,20 @@ export const config = {
     chainId: 534353,
   },
   polygon: {
+    entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
+    simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
+    fiatPaymaster: "0x2b8a0dc9884af5436b09b9a8201bb1a987f05430",
+    testCounter: "0x7482aF0Ab015a0da5f0573838202a9325f3199B2",
     connext: "0x11984dc4465481512eb5b777E44061C158CF2259",
     chainId: 137,
     connextDomainId: 1886350457,
+  },
+  polygonZKEVM: {
+    entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
+    simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
+    fiatPaymaster: "0x4Ca0c9e4cD614a32B0f4C1d854005d1eF32A22bf",
+    testCounter: "0x7482aF0Ab015a0da5f0573838202a9325f3199B2",
+    chainId: 1442,
   },
   optimism: {
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",

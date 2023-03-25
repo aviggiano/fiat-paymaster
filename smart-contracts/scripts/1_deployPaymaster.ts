@@ -1,7 +1,5 @@
 import hre, { ethers } from "hardhat";
-import { config } from "./config";
-
-type Chain = "goerli" | "gnosis" | "optimism";
+import { Chain, config } from "./config";
 
 (async () => {
   try {
