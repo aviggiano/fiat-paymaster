@@ -9,7 +9,11 @@ export const config = {
     chainId: 5,
     connextDomainId: 1735353714,
   },
-  scroll: {},
+  scrollAlpha: {
+    entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
+    simpleAccountFactory: "0x09c58cf6be8E25560d479bd52B4417d15bCA2845",
+    fiatPaymaster: "0xF22876F40B9b420c6BB5c4B314DEaEaaC74adf6f",
+  },
   polygon: {
     connext: "0x11984dc4465481512eb5b777E44061C158CF2259",
     chainId: 137,
