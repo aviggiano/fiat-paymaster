@@ -15,8 +15,8 @@ import { config } from "./config";
     await response.wait();
 
     console.log("Adding paymaster deposit and stake to entry point...");
-    await entryPoint.depositTo(fiatPaymaster.address, { value: ethers.utils.parseEther("0.1") });
-    response = await fiatPaymaster.addStake(1, { value: ethers.utils.parseEther("0.2") });
+    await entryPoint.depositTo(fiatPaymaster.address, { value: ethers.utils.parseEther("0.0005") });
+    response = await fiatPaymaster.addStake(1, { value: ethers.utils.parseEther("0.0005") });
     await response.wait();
   } catch (e) {
     console.error(e);
