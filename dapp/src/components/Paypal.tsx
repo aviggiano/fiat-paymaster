@@ -17,9 +17,11 @@ export const Paypal: FC = () => {
     axios.get(`${backendUrl}/health`);
   }, []);
 
-  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
-    axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress, network }),
-  );
+  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any => {
+    const value = { address: accountAddress, network };
+    console.log(value);
+    axios.post(`${backendUrl}/paypal/order/create`, value);
+  });
   const captureMutation = useMutation<string, AxiosError, any, Response>((data): any =>
     axios.post(`${backendUrl}/paypal/order/capture`, data),
   );

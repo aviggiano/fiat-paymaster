@@ -6,7 +6,10 @@ import { config } from "../../config";
 
 export default async function handle(req: Request, res: Response) {
   console.log(req.body);
-  const { address } = req.body;
+  const {
+    address,
+    network: { network },
+  } = req.body;
   const amount = "10.00";
 
   const PaypalClient = client();
@@ -34,6 +37,7 @@ export default async function handle(req: Request, res: Response) {
     status: "PENDING",
     address,
     amount,
+    network,
   };
   await database.set(key, value);
   res.json(value);

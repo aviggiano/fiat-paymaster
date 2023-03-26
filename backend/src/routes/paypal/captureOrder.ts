@@ -4,7 +4,7 @@ import { Order } from "@paypal/checkout-server-sdk/lib/orders/lib";
 import type { HttpResponse } from "@paypal/paypalhttp/lib/paypalhttp/http_client.js";
 import { Request, Response } from "express";
 import * as database from "../../lib/database";
-import { mintTokens } from "../../lib/fiatPaymaster";
+import { fiatPaymaster } from "../../lib/fiatPaymaster";
 import { ethers } from "ethers";
 
 export default async function handle(req: Request, res: Response) {
@@ -19,6 +19,7 @@ export default async function handle(req: Request, res: Response) {
 
   const key = response.result!.id;
   const value = await database.get(key);
+  const { mintTokens } = await fiatPaymaster(value.network);
   await mintTokens(value.address, ethers.utils.parseEther(value.amount));
 
   res.json({ ...response.result });
