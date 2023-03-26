@@ -20,7 +20,9 @@ export default async function handle(req: Request, res: Response) {
   const key = response.result!.id;
   const value = await database.get(key);
   const { mintTokens } = await fiatPaymaster(value.network);
-  await mintTokens(value.address, ethers.utils.parseEther(value.amount));
+  console.log("mintTokens", value.address, value.amount);
+  const receipt = await mintTokens(value.address, ethers.utils.parseEther(value.amount));
+  console.log(receipt);
 
   res.json({ ...response.result });
 }
