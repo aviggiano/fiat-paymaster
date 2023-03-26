@@ -16,6 +16,7 @@ export const Page: FC = () => {
   const [status, setStatus] = useState<string>();
   const [tx, setTx] = useState<string>();
   const [error, setError] = useState<string>();
+  const [refreshCounter, setRefreshCounter] = useState<number>(Date.now());
 
   const explorer = (config as any)[network?.name as string]?.explorer;
 
@@ -49,7 +50,7 @@ export const Page: FC = () => {
     <div className="page">
       <h1>Fiat Paymaster</h1>
       <ConnectButton />
-      <Balances />
+      <Balances refreshCounter={refreshCounter} />
       <div className="mt-3">{status && <p className="">{status}</p>}</div>
       <div className="mt-3" style={{ overflowWrap: "break-word" }}>
         {error ? (
@@ -61,7 +62,7 @@ export const Page: FC = () => {
         ) : null}
       </div>
       <h2>Buy FPUSD</h2>
-      <Paypal />
+      <Paypal refresh={() => setRefreshCounter(Date.now())} />
       <h2>Counter</h2>
       <p>Counter value: {isUndefined(currentCount) ? "***" : `${currentCount}`}</p>
       <div>

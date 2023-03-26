@@ -4,7 +4,7 @@ import { IAppState } from "../services";
 import { AppContext } from "../contexts/AppContext";
 import { isUndefined } from "lodash-es";
 
-export const Balances: FC = () => {
+export const Balances: FC<{ refreshCounter: number }> = ({ refreshCounter }) => {
   const state = useContext<IAppState | undefined>(AppContext);
   const { provider, accountAddress, fpusd } = state || {};
 

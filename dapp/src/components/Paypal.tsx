@@ -7,7 +7,7 @@ import { FC, useContext, useEffect } from "react";
 import { IAppState } from "../services";
 import { AppContext } from "../contexts/AppContext";
 
-export const Paypal: FC = () => {
+export const Paypal: FC<{ refresh: () => {}}> = ({ refresh }) => {
   const state = useContext<IAppState | undefined>(AppContext);
   const accountAddress = state?.accountAddress;
   const network = state?.network;
@@ -30,7 +30,7 @@ export const Paypal: FC = () => {
 
   useEffect(() => {
     if (captureMutation.data) {
-      window.location.reload();
+      refresh();
     }
   }, [captureMutation.data]);
 
