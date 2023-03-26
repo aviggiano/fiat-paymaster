@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { configureChains, mainnet, goerli, createClient, WagmiConfig } from "wagmi";
+import { polygon, optimism } from "@wagmi/chains";
 import { infuraProvider } from "wagmi/providers/infura";
 import { App } from "./App";
 import { AppProvider } from "./contexts/AppContext";
@@ -11,7 +12,7 @@ import "./index.css";
 const queryClient = new QueryClient();
 
 const { provider, webSocketProvider } = configureChains(
-  [mainnet, goerli],
+  [mainnet, goerli, polygon, optimism],
   [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY || "NO_KEY" })],
 );
 

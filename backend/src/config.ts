@@ -3,6 +3,7 @@ export const config = {
   salt: "0x0000000000000000000000000000000000000000000000000000000000000000",
   feePercent: 0.05,
   goerli: {
+    explorer: "https://goerli.etherscan.io",
     providerUrl: process.env.GOERLI_PROVIDER_URL!,
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x09c58cf6be8E25560d479bd52B4417d15bCA2845",
@@ -12,13 +13,15 @@ export const config = {
     chainId: 5,
     connextDomainId: 1735353714,
   },
-  scrollAlpha: {
+  scrollTestnet: {
+    explorer: "https://blockscout.scroll.io/",
     providerUrl: "https://alpha-rpc.scroll.io/l2",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x09c58cf6be8E25560d479bd52B4417d15bCA2845",
     fiatPaymaster: "0xF22876F40B9b420c6BB5c4B314DEaEaaC74adf6f",
   },
   polygon: {
+    explorer: "https://polygonscan.com",
     providerUrl: "https://rpc.ankr.com/polygon",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
@@ -28,7 +31,8 @@ export const config = {
     chainId: 137,
     connextDomainId: 1886350457,
   },
-  polygonZKEVM: {
+  polygonZkEvmTestnet: {
+    explorer: "https://testnet-zkevm.polygonscan.com",
     providerUrl: "https://rpc.public.zkevm-test.net",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
@@ -37,6 +41,7 @@ export const config = {
     chainId: 1442,
   },
   optimism: {
+    explorer: "https://optimistic.etherscan.io",
     providerUrl: "https://rpc.ankr.com/optimism",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
@@ -47,11 +52,13 @@ export const config = {
     connextDomainId: 1869640809,
   },
   optimismGoerli: {
+    explorer: "https://goerli-optimism.etherscan.io",
     connext: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",
     chainId: 420,
     connextDomainId: 1735356532,
   },
   gnosis: {
+    explorer: "https://gnosisscan.io",
     providerUrl: "https://rpc.gnosischain.com",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
@@ -62,6 +69,7 @@ export const config = {
     connextDomainId: 6778479,
   },
   mumbai: {
+    explorer: "https://mumbai.polygonscan.com",
     connext: "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
     chainId: 80001,
     connextDomainId: 9991,

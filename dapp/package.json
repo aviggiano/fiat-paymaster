@@ -6,6 +6,7 @@
     "@account-abstraction/contracts": "^0.5.0",
     "@account-abstraction/sdk": "^0.5.0",
     "@paypal/react-paypal-js": "^7.8.2",
+    "@wagmi/chains": "^0.2.14",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
     "ethereum-blockies-base64": "^1.0.2",

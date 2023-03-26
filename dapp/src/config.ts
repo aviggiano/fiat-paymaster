@@ -19,7 +19,7 @@ export const config = {
     chainId: 5,
     connextDomainId: 1735353714,
   },
-  scrollAlpha: {
+  scrollTestnet: {
     explorer: "https://blockscout.scroll.io/",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x09c58cf6be8E25560d479bd52B4417d15bCA2845",
@@ -35,7 +35,7 @@ export const config = {
     chainId: 137,
     connextDomainId: 1886350457,
   },
-  polygonZKEVM: {
+  polygonZkEvmTestnet: {
     explorer: "https://testnet-zkevm.polygonscan.com",
     entryPoint: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
     simpleAccountFactory: "0x4130EF9f86854245D6A18B24868580B3C896f116",
