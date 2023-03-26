@@ -9,7 +9,7 @@ if (!process.env.PAYMASTER_OWNER_PRIVATE_KEY) {
 }
 
 export async function fiatPaymaster(network: Chain) {
-  const networkConfig = config[network];
+  const networkConfig = (config as any)[network];
   const provider = new ethers.providers.JsonRpcProvider(networkConfig.providerUrl);
   const paymasterSigner = new ethers.Wallet(process.env.PAYMASTER_OWNER_PRIVATE_KEY!).connect(provider);
   const abi = ["function owner() external view returns (address)", "function mintTokens(address, uint256)"];
