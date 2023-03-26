@@ -7,7 +7,7 @@ import { FC, useContext, useEffect } from "react";
 import { IAppState } from "../services";
 import { AppContext } from "../contexts/AppContext";
 
-export const Paypal: FC<{ refresh: () => {}}> = ({ refresh }) => {
+export const Paypal: FC<{ refresh: () => void }> = ({ refresh }) => {
   const state = useContext<IAppState | undefined>(AppContext);
   const accountAddress = state?.accountAddress;
   const network = state?.network;
@@ -32,7 +32,7 @@ export const Paypal: FC<{ refresh: () => {}}> = ({ refresh }) => {
     if (captureMutation.data) {
       refresh();
     }
-  }, [captureMutation.data]);
+  }, [captureMutation.data, refresh]);
 
   const onApprove = async (data: OnApproveData): Promise<void> => {
     return captureMutation.mutate({ orderID: data.orderID });

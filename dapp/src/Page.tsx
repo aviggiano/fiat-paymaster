@@ -17,6 +17,7 @@ export const Page: FC = () => {
   const [tx, setTx] = useState<string>();
   const [error, setError] = useState<string>();
   const [refreshCounter, setRefreshCounter] = useState<number>(Date.now());
+  const refresh = () => setRefreshCounter(Date.now());
 
   const explorer = (config as any)[network?.name as string]?.explorer;
 
@@ -62,7 +63,7 @@ export const Page: FC = () => {
         ) : null}
       </div>
       <h2>Buy FPUSD</h2>
-      <Paypal refresh={() => setRefreshCounter(Date.now())} />
+      <Paypal refresh={refresh} />
       <h2>Counter</h2>
       <p>Counter value: {isUndefined(currentCount) ? "***" : `${currentCount}`}</p>
       <div>
