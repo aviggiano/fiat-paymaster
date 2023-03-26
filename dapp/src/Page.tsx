@@ -52,7 +52,13 @@ export const Page: FC = () => {
       <Balances />
       <div className="mt-3">{status && <p className="">{status}</p>}</div>
       <div className="mt-3" style={{ overflowWrap: "break-word" }}>
-        {error ? <p className="">{error}</p> : tx ? <p className="">{`${explorer}/tx/${tx}`}</p> : null}
+        {error ? (
+          <p className="">{error}</p>
+        ) : tx ? (
+          <a href={`${explorer}/tx/${tx}`} target="_blank" rel="noreferrer">
+            {tx}
+          </a>
+        ) : null}
       </div>
       <h2>Buy FPUSD</h2>
       <Paypal />
