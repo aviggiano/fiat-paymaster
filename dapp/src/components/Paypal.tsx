@@ -10,6 +10,7 @@ import { AppContext } from "../contexts/AppContext";
 export const Paypal: FC = () => {
   const state = useContext<IAppState | undefined>(AppContext);
   const accountAddress = state?.accountAddress;
+  const network = state?.network;
 
   useEffect(() => {
     // wake heroku up
@@ -17,7 +18,7 @@ export const Paypal: FC = () => {
   }, []);
 
   const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
-    axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress }),
+    axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress, network }),
   );
   const captureMutation = useMutation<string, AxiosError, any, Response>((data): any =>
     axios.post(`${backendUrl}/paypal/order/capture`, data),

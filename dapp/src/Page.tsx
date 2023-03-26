@@ -6,13 +6,18 @@ import { AppContext } from "./contexts/AppContext";
 import { ConnectButton } from "./components/ConnectButton";
 import { Paypal } from "./components/Paypal";
 import { Balances } from "./components/Balances";
+import { config } from "./config";
 
 export const Page: FC = () => {
   const state = useContext<IAppState | undefined>(AppContext);
-  const { provider, accountAddress, counter } = state || {};
+  const { provider, accountAddress, counter, network } = state || {};
 
   const [currentCount, setCurrentCount] = useState<number>();
   const [status, setStatus] = useState<string>();
+  const [tx, setTx] = useState<string>();
+  const [error, setError] = useState<string>();
+
+  const explorer = (config as any)[network?.name as string]?.explorer;
 
   const refreshValues = useCallback(async () => {
     if (accountAddress) {
@@ -28,15 +33,15 @@ export const Page: FC = () => {
     setStatus("Requesting signature...");
     try {
       const response = await counter?.count({ gasLimit: 66_000 });
-      setStatus(`Sent, waiting: ${response.hash}`);
       const timeout = 60_000;
       const receipt = await provider?.waitForTransaction(response.hash, undefined, timeout);
       console.log({ receipt });
       setStatus("Success!");
+      setTx(response.hash);
       await refreshValues();
     } catch (e: any) {
-      console.error(e);
-      setStatus(`Error: ${e?.message || e}`);
+      setStatus(`Error`);
+      setError(e?.message);
     }
   };
 
@@ -46,6 +51,9 @@ export const Page: FC = () => {
       <ConnectButton />
       <Balances />
       <div className="mt-3">{status && <p className="">{status}</p>}</div>
+      <div className="mt-3" style={{ maxWidth: "200px", overflowWrap: "break-word" }}>
+        {error ? <p className="">{error}</p> : tx ? <p className="">{`${explorer}/tx/${tx}`}</p> : null}
+      </div>
       <h2>Buy FPUSD</h2>
       <Paypal />
       <h2>Counter</h2>

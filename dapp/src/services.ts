@@ -14,40 +14,46 @@ export interface IAppState {
   counter: ethers.Contract;
   isAA: boolean;
   accountAPI: BaseAccountAPI;
+  network: ethers.providers.Network;
 }
 
 export const getAppState = async (originalSigner: ethers.Signer) => {
   const [isAA, signer, provider, accountAPI] = await getSignerAndProvider(originalSigner);
+  const web3Provider = originalSigner.provider as Web3Provider;
+  const network = await web3Provider.getNetwork();
+  const networkConfig = (config as any)[network.name];
 
   const accountAddress = await signer.getAddress();
-  const counter = new ethers.Contract(config.testCounter, TestCounterAbi, signer);
-  const fpusd = TokenPaymaster__factory.connect(config.fiatPaymaster, provider);
+  const counter = new ethers.Contract(networkConfig.testCounter, TestCounterAbi, signer);
+  const fpusd = TokenPaymaster__factory.connect(networkConfig.fiatPaymaster, provider);
 
-  return { provider, signer, accountAddress, fpusd, counter, isAA, accountAPI };
+  return { provider, signer, accountAddress, fpusd, counter, isAA, accountAPI, network };
 };
 
 export const getSignerAndProvider = async (originalSigner: ethers.Signer) => {
   const web3Provider = originalSigner.provider as Web3Provider;
   const injectedProvider = web3Provider.provider;
+  const network = await web3Provider.getNetwork();
+  const networkConfig = (config as any)[network.name];
   const isAA = (injectedProvider as any).isAAExtension;
   const paymasterAPI = {
-    getPaymasterAndData: async () => config.fiatPaymaster,
+    getPaymasterAndData: async () => networkConfig.fiatPaymaster,
   };
 
   if (isAA) {
     const accountAPI = new SimpleAccountAPI({
       accountAddress: await originalSigner.getAddress(),
       provider: web3Provider,
-      entryPointAddress: config.entryPoint,
+      entryPointAddress: networkConfig.entryPoint,
       owner: originalSigner,
-      factoryAddress: config.simpleAccountFactory,
+      factoryAddress: networkConfig.simpleAccountFactory,
       paymasterAPI,
     });
 
     return [true, originalSigner, web3Provider, accountAPI] as const;
   }
 
-  const clientConfig: ClientConfig = { entryPointAddress: config.entryPoint, bundlerUrl, paymasterAPI };
+  const clientConfig: ClientConfig = { entryPointAddress: networkConfig.entryPoint, bundlerUrl, paymasterAPI };
   const erc4337Provider = await wrapProvider(web3Provider, clientConfig, originalSigner);
   const erc4337Signer = erc4337Provider.getSigner();
   const accountAPI = erc4337Provider.smartAccountAPI;
