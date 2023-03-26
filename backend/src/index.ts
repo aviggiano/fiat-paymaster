@@ -18,7 +18,9 @@ app.get("/config", (req, res) => {
 app.get("/", (req, res) => {
   res.send({ status: "ok" });
 });
-
+app.get("/health", (req, res) => {
+  res.send({ status: "ok" });
+});
 app.post("/paypal/order/capture", captureOrder);
 app.post("/paypal/order/create", createOrder);
 
