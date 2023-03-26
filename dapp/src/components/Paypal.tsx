@@ -12,13 +12,6 @@ export const Paypal: FC = () => {
   const accountAddress = state?.accountAddress;
   const network = state?.network;
 
-  console.log(network);
-
-  useEffect(() => {
-    // wake heroku up
-    axios.get(`${backendUrl}/health`);
-  }, []);
-
   const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
     axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress, network }),
   );
@@ -29,6 +22,17 @@ export const Paypal: FC = () => {
     const response = await createMutation.mutateAsync({});
     return response.data.orderID;
   };
+
+  useEffect(() => {
+    // wake heroku up
+    axios.get(`${backendUrl}/health`);
+  }, []);
+
+  useEffect(() => {
+    if (captureMutation.data) {
+      window.location.reload();
+    }
+  }, [captureMutation.data]);
 
   const onApprove = async (data: OnApproveData): Promise<void> => {
     return captureMutation.mutate({ orderID: data.orderID });
