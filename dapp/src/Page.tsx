@@ -51,7 +51,7 @@ export const Page: FC = () => {
       <ConnectButton />
       <Balances />
       <div className="mt-3">{status && <p className="">{status}</p>}</div>
-      <div className="mt-3" style={{ maxWidth: "200px", overflowWrap: "break-word" }}>
+      <div className="mt-3" style={{ overflowWrap: "break-word" }}>
         {error ? <p className="">{error}</p> : tx ? <p className="">{`${explorer}/tx/${tx}`}</p> : null}
       </div>
       <h2>Buy FPUSD</h2>
