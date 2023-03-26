@@ -6,10 +6,8 @@ import { config } from "../../config";
 
 export default async function handle(req: Request, res: Response) {
   console.log(req.body);
-  const {
-    address,
-    network: { network },
-  } = req.body;
+  const { address } = req.body;
+  const network = req.body.network?.name || "goerli";
   const amount = "10.00";
 
   const PaypalClient = client();

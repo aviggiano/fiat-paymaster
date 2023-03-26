@@ -12,16 +12,16 @@ export const Paypal: FC = () => {
   const accountAddress = state?.accountAddress;
   const network = state?.network;
 
+  console.log(network);
+
   useEffect(() => {
     // wake heroku up
     axios.get(`${backendUrl}/health`);
   }, []);
 
-  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any => {
-    const value = { address: accountAddress, network };
-    console.log(value);
-    axios.post(`${backendUrl}/paypal/order/create`, value);
-  });
+  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>((): any =>
+    axios.post(`${backendUrl}/paypal/order/create`, { address: accountAddress, network }),
+  );
   const captureMutation = useMutation<string, AxiosError, any, Response>((data): any =>
     axios.post(`${backendUrl}/paypal/order/capture`, data),
   );
@@ -53,6 +53,7 @@ export const Paypal: FC = () => {
             fundingSource={FUNDING.PAYPAL}
             createOrder={createPayPalOrder}
             onApprove={onApprove}
+            onError={(e) => console.log(e)}
           />
         </PayPalScriptProvider>
       </div>
