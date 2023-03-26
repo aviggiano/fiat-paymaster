@@ -1,5 +1,6 @@
-import hre, { ethers } from "hardhat";
-import { Chain, config } from "./config";
+import hre from "hardhat";
+import { ethers } from "hardhat";
+import { config } from "./config";
 
 (async () => {
   try {
@@ -8,8 +9,9 @@ import { Chain, config } from "./config";
     const deployerBalance = await deployer.getBalance();
     console.log(`Deployer is ${deployer.address} with balance ${ethers.utils.formatEther(deployerBalance)} ETH`);
 
-    const entryPoint = await ethers.getContractAt("IEntryPoint", config[network].entryPoint, deployer);
-    const fiatPaymaster = await ethers.getContractAt("FiatPaymaster", config[network].fiatPaymaster, deployer);
+    const networkConfig = (config as any)[hre.network.name];
+    const entryPoint = await ethers.getContractAt("IEntryPoint", networkConfig.entryPoint, deployer);
+    const fiatPaymaster = await ethers.getContractAt("FiatPaymaster", networkConfig.fiatPaymaster, deployer);
 
     console.log("Setting 1 ETH = 1800 FPUSD");
     let response = await fiatPaymaster.setTokenValueOfEth(ethers.utils.parseEther("1800"));

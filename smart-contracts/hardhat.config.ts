@@ -21,6 +21,7 @@ const config: HardhatUserConfig = {
       accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
     },
     scrollAlpha: {
+      chainId: 534353,
       url: "https://alpha-rpc.scroll.io/l2",
       accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
     },
